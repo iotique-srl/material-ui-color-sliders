@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     height: "20px",
     marginTop: "-6px",
     color: "white",
+    backgroundColor: "white",
     boxShadow: ({ green }) =>
       "0px 0px 0px 2px " + tinyColor({ r: 0, g: green, b: 0 }),
     "&:hover": {

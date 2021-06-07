@@ -29,6 +29,7 @@ const useStyles = makeStyles({
     height: "20px",
     marginTop: "-6px",
     color: "white",
+    backgroundColor: "white",
     boxShadow: ({ hue, saturation, lightness }) =>
       "0px 0px 0px 2px " +
       tinyColor({ h: hue, s: saturation, l: lightness * 0.9 }),
