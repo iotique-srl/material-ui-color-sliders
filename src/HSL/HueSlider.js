@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     width: "20px",
     height: "20px",
     marginTop: "-6px",
+    marginLeft: "-10px",
     color: "white",
     backgroundColor: "white",
     boxShadow: ({ hue }) =>

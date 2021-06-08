@@ -16,6 +16,7 @@ const useStyles = makeStyles({
     height: "20px",
     marginTop: "-6px",
     color: "white",
+    marginLeft: "-10px",
     backgroundColor: "white",
     boxShadow: ({ red }) =>
       "0px 0px 0px 2px " + tinyColor({ r: red, g: 0, b: 0 }),
