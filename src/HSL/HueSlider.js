@@ -50,7 +50,7 @@ export default ({
       classes={{ rail, thumb }}
       min={0}
       max={359}
-      style={style}
+      style={{ ...style, padding: "13px 0" }}
       onChange={(_, value) => {
         setHue(value);
         onChange(value);

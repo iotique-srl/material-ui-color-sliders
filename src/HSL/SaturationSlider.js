@@ -74,7 +74,7 @@ export default ({
       min={0}
       max={1}
       step={0.01}
-      style={style}
+      style={{ ...style, padding: "13px 0" }}
       onChange={(_, value) => {
         setSaturation(value);
         onChange(value);

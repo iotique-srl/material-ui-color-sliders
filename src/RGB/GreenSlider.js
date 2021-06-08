@@ -49,7 +49,7 @@ export default ({
       classes={{ rail, thumb }}
       min={0}
       max={255}
-      style={style}
+      style={{ ...style, padding: "13px 0" }}
       onChange={(_, value) => {
         setGreen(value);
         onChange(value);
