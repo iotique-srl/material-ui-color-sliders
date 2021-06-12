@@ -5,6 +5,9 @@
 <h1 align="center">Material-UI Color Sliders</h1>
 
 A touch-friendly color picker based on [Material-UI](https://material-ui.com/) that supports both HSL and RGB color models.
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/23523551/121777174-f325c500-cb90-11eb-9746-f9da3bcb13be.png" alt="Component screenshot" width="960"/>
+</p>
 
 # Installation
 
