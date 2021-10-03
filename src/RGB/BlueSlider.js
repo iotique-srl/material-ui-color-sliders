@@ -1,10 +1,18 @@
-import React, { useContext } from "react";
-import Slider from "@material-ui/core/Slider";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import tinyColor from "tinycolor2";
-import RGBSliderContext from "./RGBSliderContext";
+import React, { Component } from "react"
+import Slider from "@material-ui/core/Slider"
+import withStyles from "@material-ui/core/styles/withStyles"
+import tinyColor from "tinycolor2"
+import RGBSliderContext from "./RGBSliderContext"
 
-const useStyles = makeStyles({
+export default class ContextInjector extends Component {
+  static contextType = RGBSliderContext
+
+  render() {
+    return <BlueSliderWithStyles {...this.context} {...this.props} />
+  }
+}
+
+const BlueSliderWithStyles = withStyles({
   rail: {
     background: "linear-gradient(to right, #000, #00f)",
     height: "8px",
@@ -33,29 +41,33 @@ const useStyles = makeStyles({
         "0px 0px 0px 14px " + tinyColor({ r: 0, g: 0, b: blue }).setAlpha(0.16),
     },
   },
-});
+})(
+  class BlueSlider extends Component {
+    render() {
+      const {
+        style,
+        onChange = () => {},
+        onChangeCommitted = () => {},
+        classes: { rail, thumb },
+        blue,
+        setBlue,
+      } = this.props
 
-export default ({
-  style,
-  onChange = () => {},
-  onChangeCommitted = () => {},
-}) => {
-  const { blue, setBlue } = useContext(RGBSliderContext);
-  const { rail, thumb } = useStyles({ blue });
-
-  return (
-    <Slider
-      track={false}
-      classes={{ rail, thumb }}
-      min={0}
-      max={255}
-      style={{ ...style, padding: "13px 0" }}
-      onChange={(_, value) => {
-        setBlue(value);
-        onChange(value);
-      }}
-      value={blue}
-      onChangeCommitted={onChangeCommitted}
-    />
-  );
-};
+      return (
+        <Slider
+          track={false}
+          classes={{ rail, thumb }}
+          min={0}
+          max={255}
+          style={{ ...style, padding: "13px 0" }}
+          onChange={(_, value) => {
+            setBlue(value)
+            onChange(value)
+          }}
+          value={blue}
+          onChangeCommitted={onChangeCommitted}
+        />
+      )
+    }
+  }
+)

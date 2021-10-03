@@ -1,10 +1,18 @@
-import React, { useContext } from "react";
-import Slider from "@material-ui/core/Slider";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import tinyColor from "tinycolor2";
-import RGBSliderContext from "./RGBSliderContext";
+import React, { Component } from "react"
+import Slider from "@material-ui/core/Slider"
+import withStyles from "@material-ui/core/styles/withStyles"
+import tinyColor from "tinycolor2"
+import RGBSliderContext from "./RGBSliderContext"
 
-const useStyles = makeStyles({
+export default class ContextInjector extends Component {
+  static contextType = RGBSliderContext
+
+  render() {
+    return <RedSliderWithStyles {...this.context} {...this.props} />
+  }
+}
+
+const RedSliderWithStyles = withStyles({
   rail: {
     background: "linear-gradient(to right, #000, #f00)",
     height: "8px",
@@ -15,8 +23,8 @@ const useStyles = makeStyles({
     width: "20px",
     height: "20px",
     marginTop: "-6px",
-    color: "white",
     marginLeft: "-10px",
+    color: "white",
     backgroundColor: "white",
     boxShadow: ({ red }) =>
       "0px 0px 0px 2px " + tinyColor({ r: red, g: 0, b: 0 }),
@@ -33,29 +41,33 @@ const useStyles = makeStyles({
         "0px 0px 0px 14px " + tinyColor({ r: red, g: 0, b: 0 }).setAlpha(0.16),
     },
   },
-});
+})(
+  class RedSlider extends Component {
+    render() {
+      const {
+        style,
+        onChange = () => {},
+        onChangeCommitted = () => {},
+        classes: { rail, thumb },
+        red,
+        setRed,
+      } = this.props
 
-export default ({
-  style,
-  onChange = () => {},
-  onChangeCommitted = () => {},
-}) => {
-  const { red, setRed } = useContext(RGBSliderContext);
-  const { rail, thumb } = useStyles({ red });
-
-  return (
-    <Slider
-      track={false}
-      classes={{ rail, thumb }}
-      min={0}
-      max={255}
-      style={{ ...style, padding: "13px 0" }}
-      onChange={(_, value) => {
-        setRed(value);
-        onChange(value);
-      }}
-      value={red}
-      onChangeCommitted={onChangeCommitted}
-    />
-  );
-};
+      return (
+        <Slider
+          track={false}
+          classes={{ rail, thumb }}
+          min={0}
+          max={255}
+          style={{ ...style, padding: "13px 0" }}
+          onChange={(_, value) => {
+            setRed(value)
+            onChange(value)
+          }}
+          value={red}
+          onChangeCommitted={onChangeCommitted}
+        />
+      )
+    }
+  }
+)

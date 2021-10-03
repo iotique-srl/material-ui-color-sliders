@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
   HSLSliderProvider,
   HueSlider,
@@ -8,12 +8,12 @@ import {
   RedSlider,
   BlueSlider,
   GreenSlider,
-} from "material-ui-color-sliders";
-import Typography from "@material-ui/core/Typography";
+} from "material-ui-color-sliders"
+import Typography from "@material-ui/core/Typography"
 
 export default () => {
-  const [HSL, setHSL] = useState([125, 0.49, 0.4]);
-  const [RGB, setRGB] = useState([63, 127, 255]);
+  const [HSL, setHSL] = useState([125, 0.49, 0.4])
+  const [RGB, setRGB] = useState([63, 127, 255])
 
   return (
     <div style={{ margin: "32px 64px" }}>
@@ -53,5 +53,5 @@ export default () => {
         <BlueSlider style={{ margin: "32px 0" }} />
       </RGBSliderProvider>
     </div>
-  );
-};
+  )
+}

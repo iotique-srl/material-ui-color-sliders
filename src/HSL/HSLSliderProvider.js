@@ -1,36 +1,45 @@
-import React, { useState } from "react";
-import HSLSliderContext from "./HSLSliderContext";
+import React, { Component } from "react"
+import HSLSliderContext from "./HSLSliderContext"
 
-export default ({
-  children,
-  onChange = () => {},
-  defaultValues = [0, 1, 0.5],
-}) => {
-  const [hue, setHue] = useState(defaultValues[0]);
-  const [saturation, setSaturation] = useState(defaultValues[1]);
-  const [lightness, setLightness] = useState(defaultValues[2]);
+export default class HSLSliderProvider extends Component {
+  constructor(props) {
+    super(props)
 
-  return (
-    <HSLSliderContext.Provider
-      value={{
-        hue,
-        setHue: (hue) => {
-          setHue(hue);
-          onChange(hue, saturation, lightness);
-        },
-        saturation,
-        setSaturation: (saturation) => {
-          setSaturation(saturation);
-          onChange(hue, saturation, lightness);
-        },
-        lightness,
-        setLightness: (lightness) => {
-          setLightness(lightness);
-          onChange(hue, saturation, lightness);
-        },
-      }}
-    >
-      {children}
-    </HSLSliderContext.Provider>
-  );
-};
+    const { defaultValues = [0, 1, 0.5] } = props
+
+    this.state = {
+      hue: defaultValues[0],
+      saturation: defaultValues[1],
+      lightness: defaultValues[2],
+    }
+  }
+
+  render() {
+    const { children, onChange = () => {} } = this.props
+    const { hue, saturation, lightness } = this.state
+
+    return (
+      <HSLSliderContext.Provider
+        value={{
+          hue,
+          setHue: (hue) => {
+            this.setState({ hue })
+            onChange(hue, saturation, lightness)
+          },
+          saturation,
+          setSaturation: (saturation) => {
+            this.setState({ saturation })
+            onChange(hue, saturation, lightness)
+          },
+          lightness,
+          setLightness: (lightness) => {
+            this.setState({ lightness })
+            onChange(hue, saturation, lightness)
+          },
+        }}
+      >
+        {children}
+      </HSLSliderContext.Provider>
+    )
+  }
+}

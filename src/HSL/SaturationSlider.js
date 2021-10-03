@@ -1,10 +1,18 @@
-import React, { useContext } from "react";
-import Slider from "@material-ui/core/Slider";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import tinyColor from "tinycolor2";
-import HSLSliderContext from "./HSLSliderContext";
+import React, { Component } from "react"
+import Slider from "@material-ui/core/Slider"
+import withStyles from "@material-ui/core/styles/withStyles"
+import tinyColor from "tinycolor2"
+import HSLSliderContext from "./HSLSliderContext"
 
-const useStyles = makeStyles({
+export default class ContextInjector extends Component {
+  static contextType = HSLSliderContext
+
+  render() {
+    return <SaturationSliderWithStyles {...this.context} {...this.props} />
+  }
+}
+
+const SaturationSliderWithStyles = withStyles({
   rail: {
     background: ({ hue }) =>
       `linear-gradient(to right, ${tinyColor({
@@ -57,31 +65,34 @@ const useStyles = makeStyles({
         }).setAlpha(0.16),
     },
   },
-});
+})(
+  class SaturationSlider extends Component {
+    render() {
+      const {
+        style,
+        onChange = () => {},
+        onChangeCommitted = () => {},
+        classes: { rail, thumb },
+        saturation,
+        setSaturation,
+      } = this.props
 
-export default ({
-  style,
-  onChange = () => {},
-  onChangeCommitted = () => {},
-  defaultValue,
-}) => {
-  const { hue, saturation, setSaturation } = useContext(HSLSliderContext);
-  const { rail, thumb } = useStyles({ hue, saturation });
-
-  return (
-    <Slider
-      track={false}
-      classes={{ rail, thumb }}
-      min={0}
-      max={1}
-      step={0.01}
-      style={{ ...style, padding: "13px 0" }}
-      onChange={(_, value) => {
-        setSaturation(value);
-        onChange(value);
-      }}
-      value={saturation}
-      onChangeCommitted={onChangeCommitted}
-    />
-  );
-};
+      return (
+        <Slider
+          track={false}
+          classes={{ rail, thumb }}
+          min={0}
+          max={1}
+          step={0.01}
+          style={{ ...style, padding: "13px 0" }}
+          onChange={(_, value) => {
+            setSaturation(value)
+            onChange(value)
+          }}
+          value={saturation}
+          onChangeCommitted={onChangeCommitted}
+        />
+      )
+    }
+  }
+)
